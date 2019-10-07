@@ -21,10 +21,11 @@ public class Main
 		double finalGrade = 0;
 		int menuOpt = 0;
 		boolean check = true;
-		int matrCourses = 3; //Declara e inicializa la variable que indica cuantos cursos tiene matriculado el estudiante
+		int matrCourses = 3; //Declara e inicializa la variable que indica cuantos cursos tiene matriculado el estudiante, empieza con 3 cursos.
 		boolean menu = true;
-		int matrNum = 0;
-		int demtrNum = 0;
+		int matrNum = 0; //Numero de cursos a matricular
+		int demtrNum = 0; //Numero de cursos a desmatricular
+		String msg = "";
 		
 		
 		while (menu)
@@ -36,8 +37,8 @@ public class Main
 			System.out.println("3. Ver cursos matriculados");
 			System.out.println("4. Promedio final");
 			System.out.println("5. Exit");
-			finalGrade = studentMain.calculateFinalGrade();
-			studentMain.changePA();			
+			finalGrade = studentMain.calculateFinalGrade(); //Actualiza la nota final.
+			studentMain.changePA();//Actualiza el valor de prueba academica.			
 			menuOpt = inputV.nextInt();
 			switch (menuOpt)
 			{
@@ -59,10 +60,10 @@ public class Main
 							{
 								for (int cont=1;cont<=matrNum;cont++);
 								{
-									studentMain.matriculateCourse();
+									msg = studentMain.matriculateCourse();
 								}
 								check = false;
-								System.out.println("Todos los cursos han sido matriculados exitosamente.");
+								System.out.println(msg);
 								matrCourses++;
 							}
 						}
@@ -114,7 +115,7 @@ public class Main
 		}
 				
 	}
-	public void matriculateCourse()
+	public String matriculateCourse(String name, String id, int numCredits, double grade, boolean validate)
 	{
 		input = new Scanner(System.in);
 		inputNum = new Scanner(System.in);
@@ -153,9 +154,42 @@ public class Main
 			}	
 		}
 				
-		student.matriculateCourse(name,id,numCredits,grade,validate);
+		String msg = "";
+		boolean nullCourse = false;
+		checkCourse = student.searchByID(id);
+		if(checkCourse == null){
+			if(student.getType() == student.ACTIVE){
+				if (course1 == null){
+					nullCourse = true;
+				}
+				else if (course2 == null){
+					nullCourse = true;
+				}
+				else if (course3 == null){
+					nullCourse = true;
+				}
+				else if (course4 == null){
+					nullCourse = true;
+				}
+				else if (course5 != null){
+					nullCourse = true;
+				}
+				
+				if(nullCourse = true){
+					student.addCourse();
+					msg = "Curso matriculado exitosamente.";
+				}
+			}
+			else{
+				msg = "Usted no es un estudiante activo, no puede matricular cursos.";
+			}
+		}
+		else{
+			msg = "El curso ya esta matriculado o id mal digitada.";
+		}
+		return msg;
 	}
-	
+		
 	public void initialCourses()
 	{
 		student.matriculateCourse("Quimica Organica II","0003",4,3.7,true);

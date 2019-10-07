@@ -19,7 +19,11 @@ public class Student
 	private char type;
 	
 	//Relaciones
-	Course[] courses = new Course[5]; 
+	Course course1 = null;
+	Course course2 = null;
+	Course course3 = null;
+	Course course4 = null;
+	Course course5 = null;
 	
 	//Constructor method
 	
@@ -64,68 +68,135 @@ public class Student
 	}
 	
 	//Methods
-	public double calculateFinalGrade()
+	public double calculateFinalGrade()//Done
 	{
-		double notaAcumulada = 0.0;
-		for(int i=0; i < courses.length; i++)
-		{
-			Course obj = null; 
-			
-			if (courses[i] != null)
-			{
-				obj = courses[i];
-				notaAcumulada += obj.getGrade() * obj.getNumCredits();
-			}
+		double finalGrade = 0.0;
+		if (course1 != null){
+			finalGrade = course1.getGrade()*course1.getNumCredits();
 		}
-		
-		notaAcumulada = notaAcumulada / getTotalCredits(); 
-		
-		return notaAcumulada;
-		
+		if (course2 != null){
+			finalGrade = finalGrade + course2.getGrade()*course2.getNumCredits();
+		}
+		if (course3 != null){
+			finalGrade = finalGrade + course3.getGrade()*course3.getNumCredits();
+		}
+		if (course4 != null){
+			finalGrade = finalGrade + course4.getGrade()*course4.getNumCredits();
+		}
+		if (course5 != null){
+			finalGrade = finalGrade + course5.getGrade()*course5.getNumCredits();
+		}
+		if (getTotalCredits()!= 0){
+			finalGrade = finalGrade / getTotalCredits();
+		}
+		else{
+			finalGrade = 0;
+		}
+		return finalGrade;		
 	}
 	
-	public void matriculateCourse(String name, String id, int numCredits, double grade, boolean validate)
-	{
-		for(int i=0; i < courses.length; i++)
-		{		
-			if (courses[i] == null)
-			{	
-				
-				if(grade < MINGRADE)
-				{ 
-					grade = MINGRADE;
-				} else if (grade > MAXGRADE)
-				{
-					grade = MAXGRADE;
-				}
-				
-				courses[i] = new Course(name, id, numCredits, grade, validate);
-				i = courses.length;
-			}	
+	public Course searchByID(String pID){
+		Course tempCourse = null;
+		if (course1 != null && pID.equals(course1.getID()){
+			tempCourse = course1;
+		}
+		else if (course2 != null && pID.equals(course2.getID()){
+			tempCourse = course2;
+		}
+		else if (course3 != null && pID.equals(course3.getID()){
+			tempCourse = course3;
+		}
+		else if (course4 != null && pID.equals(course4.getID()){
+			tempCourse = course4;
+		}
+		else if (course5 != null && pID.equals(course5.getID()){
+			tempCourse = course5;
+		}
+		
+	}
+	public void addCourse{
+		if (course1 != null){
+			course1 = new Course(name,id,numCredits,grade,validate);
+		}
+		else if (course2 != null){
+			course2 = new Course(name,id,numCredits,grade,validate);
+		}
+		else if (course3 != null){
+			course3 = new Course(name,id,numCredits,grade,validate);
+		}
+		else if (course4 != null){
+			course4 = new Course(name,id,numCredits,grade,validate);
+		}
+		else if (course5 != null){
+			course5 = new Course(name,id,numCredits,grade,validate);
 		}
 	}
 	
-	public String getCourseName(int courseNum)//Agregado
+	public String getCourseName(int courseNum)//DONE
 	{
-		String name = courses[courseNum].getName();
+		String name = "";
+		
+		switch (courseNum){
+			case 1:
+				name = course1.getName();
+			break;
+			case 2:
+				name = course2.getName();
+			break;
+			case 3:
+				name = course3.getName();
+			break;
+			case 4:
+				name = course4.getName();
+			break;
+			case 5:
+				name = course5.getName();
+			break;			
+			default:
+		}
 		return name;
 	}
 	
-	public void deleteCourse(int demtrNum)//Agregado
+	public void deleteCourse(int demtrNum)//DONE
 	{
-		courses[demtrNum] = null;
+		switch (courseNum){
+			case 1:
+				course1 = null;
+			break;
+			case 2:
+				course2 = null;
+			break;
+			case 3:
+				course3 = null;
+			break;
+			case 4:
+				course4 = null;
+			break;
+			case 5:
+				course5 = null;
+			break;			
+			default:
+		}
 	}
 	
-	public int getTotalCredits()
+	public int getTotalCredits()//DONE
     {
         int totalCredits=0;
-        for(int i = 0; i < courses.length; i++)
-        {
-            if (courses[i]!=null)
-			{
-				totalCredits += courses[i].getNumCredits();
-			}
-        }
+        if (course1 != null){
+			totalCredits = course1.getNumCredits();
+		}
+		else if (course2 != null){
+			totalCredits = totalCredits + course2.getNumCredits();
+		}
+		else if (course3 != null){
+			totalCredits = totalCredits + course3.getNumCredits();
+		}
+		else if (course4 != null){
+			totalCredits = totalCredits + course4.getNumCredits();
+		}
+		else if (course5 != null){
+			totalCredits = totalCredits + course5.getNumCredits();
+		}
         return totalCredits;
     }
 	
