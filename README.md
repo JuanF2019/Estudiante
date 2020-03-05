@@ -1,2 +1,2 @@
 # courses-practice
-Manage courses annd its students in simple way using arrays.
+Manage courses and its students in simple way using arrays.
